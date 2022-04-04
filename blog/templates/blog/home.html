@@ -1,0 +1,59 @@
+{% extends 'blog/main.html' %}
+
+{%block main_section%}
+<h2>Blog</h2>
+<div class="posts">
+    {% for post in news%}
+    <div class="alert alert-light">
+        <h4>{{post.title}}</h4>
+        <p><b>Описание:</b> {{post.text|striptags|truncatechars:300}}</p>
+        <div class="row">
+            
+            {% if  post.avtor.profile.img%}    
+            <div class="col-md-2">
+                <img src="{{post.avtor.profile.img.url}}" class="user-image" alt="{{post.avtor}}">
+            </div>
+            {% else %}
+                <img src="/pictures/default.jpg" class="user-image" alt="{{post.avtor}}">
+            {% endif %}
+            <div class="col-md-10 mt-2">
+                <span class="text-muted"><b>Публикация:</b> {{post.date}}</span>
+                {%if post.avtor%}
+                    <p><b>Автор:</b> {{post.avtor}}</p>
+                {%else%}
+                    <p><b>Автор:</b> Админ</p>
+                {%endif%}
+            </div>
+        </div>
+        <a href="{% url 'news-detail' post.id %}" class="btn btn-outline-warning">Читать далее...</a>
+    </div>
+    {%endfor%}
+    
+    <!-- {% if is_paginated %}
+    {% if page.obj.has_previous %}
+        <a href="?page=1" class="btn btn-outline-warning">Начало</a>
+        <a href="?page={{ page_obj.previous_page_number }}" class="btn btn-outline-warning">Предыдущая</a>        
+    {% endif %}      
+    
+    {% if page.obj.has_next %}
+        <a href="?page={{ page_obj.next_page_number }}" class="btn btn-outline-warning">Следующая</a>
+        <a href="?page={{ page_obj.paginator.num_pages }}" class="btn btn-outline-warning">Последняя</a>        
+    {% endif %}    
+{% endif %} -->
+</div> 
+
+{%endblock%}
+
+
+
+{% block aside %}
+<div class="bg-info p-3 mb-3 rounded">
+    <h3>Разбираемся в топовых IT-терминах: просто о сложном</h3>
+    <img src="https://itproger.com/img/news/1645000563.jpg" class="img-thumbnail mb-1">
+    <p>Профессиональный сленг есть в каждом community-специалистов. У айтишников он перегружен многозначительными терминами, непонятными для обычных пользователей и начинающих программистов.
+<br><a href="https://itproger.com/news/razbiraemsya-v-topovih-it-terminah-prosto-o-slozhnom" target="_black">
+        <button class="btn btn-warning">Посмотреть</button>
+    </a>
+</div>
+{% endblock aside %}
+    

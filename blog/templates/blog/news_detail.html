@@ -1,0 +1,46 @@
+{% extends 'blog/main.html' %}
+
+{%block main_section%}
+<h2>Blog</h2>
+<div class="posts">
+    <div class="alert alert-light">
+        <a href="{% url 'blog-home' %}">Вернуться назад</a>
+        <h4>{{object.title}}</h4>
+        <p><b>Описание:</b> {{object.text|safe}}</p>
+        <div class="row">
+            <div class="col-md-2">
+                <img src="{{object.avtor.profile.img.url}}" class="user-image" alt="{{object.avtor}}">
+            </div>
+            <div class="col-md-10 mt-2">
+                <span class="text-muted"><b>Публикация:</b>> {{object.date}}</span>
+                {%if object.avtor%}
+                    <p><b>Автор:</b> {{object.avtor}}</p>
+                {%else%}
+                    <p><b>Автор:</b> Админ</p>
+                {%endif%}
+            </div>
+        </div>
+        <hr>
+        
+        {% if object.avtor == user %}
+            <a href="{% url 'news-update' object.id%}" class="btn btn-info">Обновить пост</a>
+            <a href="{% url 'news-delete' object.id%}" class="btn btn-danger">Удалить пост</a>
+        {% endif %}
+            
+    </div>
+</div> 
+{%endblock%}
+
+
+
+{% block aside %}
+<div class="bg-info p-3 mb-3 rounded">
+    <h3>Разбираемся в топовых IT-терминах: просто о сложном</h3>
+    <img src="https://itproger.com/img/news/1645000563.jpg" class="img-thumbnail mb-1">
+    <p>Профессиональный сленг есть в каждом community-специалистов. У айтишников он перегружен многозначительными терминами, непонятными для обычных пользователей и начинающих программистов.
+<br><a href="https://itproger.com/news/razbiraemsya-v-topovih-it-terminah-prosto-o-slozhnom" target="_black">
+        <button class="btn btn-warning">Посмотреть</button>
+    </a>
+</div>
+{% endblock aside %}
+    
