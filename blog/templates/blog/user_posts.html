@@ -1,0 +1,84 @@
+{% extends 'blog/main.html' %}
+
+{%block main_section%}
+<h2 class="h2_blog">Все пользователи</h2>
+<div class="wrapper">
+<div class="search">
+    <form action="{% url 'user-posts' %}" method="get">
+        <input type="text" class="search_input" name="q" placeholder="Поиск статьи">
+        <button type="submit" class="btn btn-outline-warning">Найти</button>
+    </form>
+</div>
+
+
+<div class="posts">
+    <div class="row">
+        {% for user in page_obj %} <!--если пагинации нет, то for post in news -->
+        
+            <div class="col-md-8">
+                <div class="alert alert-light post" data-aos="fade-right" data-aos-duration="800">
+                    <h4>{{user.username}}</h4>
+                    <a href="{% url 'user-posts' %}">Посмотреть статьи</a>
+                </div>
+            </div>
+    {%endfor%}
+            
+        <div class="col-md-4">
+            Всего зарегистрированных пользователей: {{all_user}}
+            <!-- Администраторов: {{all_admin}} -->
+        </div>
+    </div>
+
+    <!-- Пагинация -->
+    <div class="pagination bg-secondary">
+        <span class="step-links">
+            
+            {% if page_obj.has_previous %}
+                {% if page_obj.previous_page_number == 1 %}
+                    <a href="?page={{ page_obj.previous_page_number }}" class="btn btn-outline-warning paginate_btn">{{ page_obj.previous_page_number }}</a>
+                {% else %}    
+                    <a href="?page=1" class="btn btn-outline-warning paginate_btn">&laquo; 1</a>
+                    <a href="?page={{ page_obj.previous_page_number }}" class="btn btn-outline-warning paginate_btn">{{ page_obj.previous_page_number }}</a>
+                {% endif %}
+            {% endif %}
+    
+            <span class="current text-warning">
+                <!-- Страница {{ page_obj.number }} из {{ page_obj.paginator.num_pages }}. -->
+                <button disabled="disable" class="btn btn-warning">{{ page_obj.number }}</button>
+            </span>
+    
+            {% if page_obj.has_next %}
+                <a href="?page={{ page_obj.next_page_number }}" class="btn btn-outline-warning paginate_btn">{{ page_obj.next_page_number }}</a>
+                <a href="?page={{ page_obj.paginator.num_pages }}" class="btn btn-outline-warning paginate_btn">Последняя({{ page_obj.paginator.num_pages }}) &raquo;</a>
+            {% endif %}
+        </span>
+    </div>
+    
+    <!-- {% if is_paginated %}
+    {% if page.obj.has_previous %}
+        <a href="?page=1" class="btn btn-outline-warning">Начало</a>
+        <a href="?page={{ page_obj.previous_page_number }}" class="btn btn-outline-warning">Предыдущая</a>        
+    {% endif %}      
+    
+    {% if page.obj.has_next %}
+        <a href="?page={{ page_obj.next_page_number }}" class="btn btn-outline-warning">Следующая</a>
+        <a href="?page={{ page_obj.paginator.num_pages }}" class="btn btn-outline-warning">Последняя</a>        
+    {% endif %}    
+{% endif %} -->
+</div> 
+</div>
+{%endblock%}
+
+
+
+<!-- {% block aside %}
+<div class="bg-info p-3 mb-3 rounded">
+    <h3>Разбираемся в топовых IT-терминах: просто о сложном</h3>
+    <img src="https://itproger.com/img/news/1645000563.jpg" class="img-thumbnail mb-1">
+    <p>Профессиональный сленг есть в каждом community-специалистов. У айтишников он перегружен многозначительными терминами, непонятными для обычных пользователей и начинающих программистов.
+<br><a href="https://itproger.com/news/razbiraemsya-v-topovih-it-terminah-prosto-o-slozhnom" target="_black">
+        <button class="btn btn-warning">Посмотреть</button>
+    </a>
+</div>
+{% endblock aside %} -->
+    

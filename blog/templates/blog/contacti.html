@@ -1,7 +1,14 @@
 {% extends 'blog/main.html' %}
-
+{% load crispy_forms_tags %}
 {%block main_section%}
-<h2>Contact</h2>
+<div class="wrapper">
+    <h2>Обратная связь</h2>
+    <form method="POST">
+        {% csrf_token %}
+        {{ form|crispy }}
+        <input type="submit" class="btn btn-outline-warning mt-3">
+    </form>
+    </div>
 {%endblock%}
 
 

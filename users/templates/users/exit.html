@@ -1,11 +1,13 @@
 {% extends 'blog/main.html' %}
 {% load crispy_forms_tags %}
 {%block main_section%}
-<div class="form-section">
-    <h2>Вы успешно вышли с аккаунта</h2>
-    <a href="{% url 'auth' %}">Войти в личный кабинет снова</a>
-    
+<div class="wrapper">
+    <div class="form-section">
+        <h2>Вы успешно вышли с аккаунта</h2>
+        <a href="{% url 'auth' %}">Войти в личный кабинет снова</a>   
+    </div>
 </div>
+
 {%endblock%}
 
 

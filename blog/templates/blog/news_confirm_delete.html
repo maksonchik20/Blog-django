@@ -1,12 +1,14 @@
 {% extends 'blog/main.html' %}
 {%block main_section%}
-<div class="form-section">
-    <h2>Вы точно хотите удалить статью "{{object.title}}"?</h2>
-    <form method="POST">
-        {% csrf_token %}
-        <button type="submit" class="btn btn-outline-danger">Удалить статью</button>
-        <a href="{% url 'news-detail' object.id %}">Нет, отмена</a>
-    </form>
+<div class="wrapper">
+    <div class="form-section">
+            <h2>Вы точно хотите удалить статью "{{object.title}}"?</h2>
+        <form method="POST">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-outline-danger">Удалить статью</button>
+            <a href="{% url 'news-detail' object.id %}">Нет, отмена</a>
+        </form> 
+    </div>
 </div>
 {%endblock%}
 

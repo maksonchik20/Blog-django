@@ -1,0 +1,63 @@
+{% extends 'blog/main.html' %}
+
+{%block main_section%}
+<h2 class="h2_blog">Blog</h2>
+<div class="search">
+    <form action="{% url 'index' %}" method="get">
+        <input type="text" class="search" name="q" placeholder="Поиск статьи">
+    </form>
+</div>
+<div class="posts">
+    {% for post in news%} <!--если пагинации нет, то for post in news -->
+    <div class="alert alert-light post" data-aos="fade-right" data-aos-duration="800">
+        <h4>{{post.title}}</h4>
+        <p><b>Описание:</b> {{post.text|striptags|truncatechars:300}}</p>
+        <div class="row">
+            
+            {% if  post.avtor.profile.img%}    
+            <div class="col-md-2">
+                <img src="{{post.avtor.profile.img.url}}" class="user-image" alt="{{post.avtor}}">
+            </div>
+            {% else %}
+                <img src="/pictures/default.jpg" class="user-image" alt="{{post.avtor}}">
+            {% endif %}
+            <div class="col-md-10 mt-2">
+                <span class="text-muted"><b>Публикация:</b> {{post.date}}</span>
+                {%if post.avtor%}
+                    <p><b>Автор:</b> {{post.avtor}}</p>
+                {%else%}
+                    <p><b>Автор:</b> Админ</p>
+                {%endif%}
+            </div>
+        </div>
+        <a href="{% url 'news-detail' post.id %}" class="btn btn-outline-warning">Читать далее...</a>
+    </div>
+    {%endfor%}
+    <!-- Пагинация -->
+    <!-- <div class="pagination bg-secondary">
+        <span class="step-links">
+            
+            {% if page_obj.has_previous %}
+                {% if page_obj.previous_page_number == 1 %}
+                    <a href="?page={{ page_obj.previous_page_number }}" class="btn btn-outline-warning paginate_btn">{{ page_obj.previous_page_number }}</a>
+                {% else %}    
+                    <a href="?page=1" class="btn btn-outline-warning paginate_btn">&laquo; 1</a>
+                    <a href="?page={{ page_obj.previous_page_number }}" class="btn btn-outline-warning paginate_btn">{{ page_obj.previous_page_number }}</a>
+                {% endif %}
+            {% endif %}
+    
+            <span class="current text-warning">
+                <!-- Страница {{ page_obj.number }} из {{ page_obj.paginator.num_pages }}. -->
+                <!-- <button disabled="disable" class="btn btn-warning">{{ page_obj.number }}</button>
+            </span>
+    
+            {% if page_obj.has_next %}
+                <a href="?page={{ page_obj.next_page_number }}" class="btn btn-outline-warning paginate_btn">{{ page_obj.next_page_number }}</a>
+                <a href="?page={{ page_obj.paginator.num_pages }}" class="btn btn-outline-warning paginate_btn">Последняя({{ page_obj.paginator.num_pages }}) &raquo;</a>
+            {% endif %} -->
+        <!-- </span> -->
+    </div> -->
+    
+</div> 
+
+{%endblock%}

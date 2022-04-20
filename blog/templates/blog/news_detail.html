@@ -1,34 +1,40 @@
 {% extends 'blog/main.html' %}
 
 {%block main_section%}
-<h2>Blog</h2>
-<div class="posts">
-    <div class="alert alert-light">
-        <a href="{% url 'blog-home' %}">Вернуться назад</a>
-        <h4>{{object.title}}</h4>
-        <p><b>Описание:</b> {{object.text|safe}}</p>
-        <div class="row">
-            <div class="col-md-2">
-                <img src="{{object.avtor.profile.img.url}}" class="user-image" alt="{{object.avtor}}">
+<div class="wrapper">
+    <h2>Blog</h2>
+    <div class="posts">
+        <div class="alert alert-light">
+            <a href="{% url 'blog-home' %}">Вернуться назад</a>
+            <h4>{{object.title}}</h4>
+            <p><b>Описание:</b> {{object.text|safe}}</p>
+            <div class="row">
+                {% if  post.avtor.profile.img%}
+                    <div class="col-md-2">
+                        <img src="{{object.avtor.profile.img.url}}" class="user-image" alt="{{object.avtor}}">
+                    </div>
+                {% else %}
+                    <img src="/pictures/default.jpg" class="user-image" alt="{{post.avtor}}">
+                {% endif %}
+                <div class="col-md-10 mt-2">
+                    <span class="text-muted"><b>Публикация:</b>> {{object.date}}</span>
+                    {%if object.avtor%}
+                        <p><b>Автор:</b> {{object.avtor}}</p>
+                    {%else%}
+                        <p><b>Автор:</b> Админ</p>
+                    {%endif%}
+                </div>
             </div>
-            <div class="col-md-10 mt-2">
-                <span class="text-muted"><b>Публикация:</b>> {{object.date}}</span>
-                {%if object.avtor%}
-                    <p><b>Автор:</b> {{object.avtor}}</p>
-                {%else%}
-                    <p><b>Автор:</b> Админ</p>
-                {%endif%}
-            </div>
-        </div>
-        <hr>
-        
-        {% if object.avtor == user %}
-            <a href="{% url 'news-update' object.id%}" class="btn btn-info">Обновить пост</a>
-            <a href="{% url 'news-delete' object.id%}" class="btn btn-danger">Удалить пост</a>
-        {% endif %}
+            <hr>
             
-    </div>
-</div> 
+            {% if object.avtor == user %}
+                <a href="{% url 'news-update' object.id%}" class="btn btn-info">Обновить пост</a>
+                <a href="{% url 'news-delete' object.id%}" class="btn btn-danger">Удалить пост</a>
+            {% endif %}
+                
+        </div>
+    </div> 
+</div>
 {%endblock%}
 
 

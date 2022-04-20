@@ -1,13 +1,18 @@
 {% extends 'blog/main.html' %}
 {% load crispy_forms_tags %}
 {%block main_section%}
-<div class="form-section">
-    <h2>Добавление новой статьи</h2>
-    <form method="POST">
-        {% csrf_token %}
-        {{ form|crispy }}
-        <button type="submit" class="btn btn-outline-warning">Добавить статью</button>
-    </form>
+<div class="wrapper">
+    <div class="form-section">
+        <h2>Добавление новой статьи</h2>
+        <form method="POST">
+            {% csrf_token %}
+            <!-- {{ post_form.media|crispy }}
+            {{ form.text | safe }} -->
+            {{ form.media }}
+            {{ form.as_p }}
+            <button type="submit" class="btn btn-outline-warning">Добавить статью</button>
+        </form>
+    </div>
 </div>
 {%endblock%}
 

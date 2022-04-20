@@ -12,7 +12,6 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 
 from pathlib import Path
 import os
-
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -38,9 +37,15 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    
     'blog.apps.BlogConfig',
     'users.apps.UsersConfig',
+
     'crispy_forms',
+    'captcha',
+    'ckeditor',
+    'ckeditor_uploader',
+    'rest_framework',
 ]
 
 MIDDLEWARE = [
@@ -120,6 +125,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
 STATIC_URL = 'static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'blog/static')
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
@@ -129,7 +135,7 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'maksonchik505@gmail.com'
 EMAIL_HOST_PASSWORD = 'nualeeafxozzpzzw'
-
+EMAIL_USE_TLS = True # Возможно убрать
 LOGIN_REDIRECT_URL = 'blog-home'
 
 LOGIN_URL = 'auth'
@@ -140,6 +146,17 @@ MEDIA_URL = '/pictures/'
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 
-
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+CKEDITOR_UPLOAD_PATH = "uploads/"
+
+CKEDITOR_BASEPATH = "/static/ckeditor/ckeditor/"
+
+
+REST_FRAMEWORK = {
+    # Use Django's standard `django.contrib.auth` permissions,
+    # or allow read-only access for unauthenticated users.
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
+    ]
+}
